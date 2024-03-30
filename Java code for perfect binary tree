@@ -1,0 +1,52 @@
+import java.util.*;
+public class Main
+{
+    static class node 
+    {
+        int data;
+        node R;
+        node L;
+        node(int d)
+        {
+            data=d;
+            L=null;
+            R=null;
+        }
+    }
+    static node root=null;
+    static int depth(node r)
+    {
+        int d=0;
+        while(r!=null)
+        {
+            d++;
+            r=r.L;
+        }
+        return d;
+    }
+    static boolean isprft(node r,int d,int level)
+    {
+        if(r==null)
+        return true;
+        if (r.L== null && r.R == null)
+        return (d == level+1);
+        if(r.L==null&&r.R!=null)
+        return true;
+        if (r.L == null || r.R== null)
+        return false;
+        
+       return isprft(r.L,d,level+1) && isprft(r.R,d,level+1);
+
+    }
+	public static void main(String[] args) {
+	    root=new node(1);
+	    root.L=new node(2);
+	    root.R=new node(3);
+	    root.L.L=new node(4);
+	    root.L.R=new node(5);
+	    root.R.L=new node(6);
+	    root.R.R=new node(7);
+	    int d=depth(root);
+	    System.out.println(isprft(root,d,0)?"is P_B_TREE":"is Not P_B_TREE");
+			}
+}
